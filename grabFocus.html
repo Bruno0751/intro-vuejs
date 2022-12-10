@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <script src="js/head.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <input type="text" id="nome" placeholder="Nome:">
+            <input type="number" id="idade" placeholder="Idade:">
+        </div>
+
+        <div>
+            <button type="button" @click="enviar">Enviar</button>
+        </div>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                enviar() {
+                    let nome = document.querySelector('input#nome')
+                    let idade = document.querySelector('input#idade')
+                    if (idade.value < 18) {
+                        alert('Idade Inválida')
+                        idade.focus()
+                    } else if (nome.value === '') {
+                        alert('Nome Inválido')
+                        nome.focus()
+                    } else if (idade.value < 18 && nome.value === '') {
+                        alert('campos Inválidos')
+                        nome.focus()
+                    } else {
+                        nome.innerHTML = ''
+                        idade.innerHTML = ''
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

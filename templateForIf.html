@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+    <style>
+        .separador {
+            list-style-type: none;
+            border-bottom: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Aula 1</h1>
+        <ul>
+            <template v-for="produto in produtos">
+                <li>{{ produto.nome }}</li>
+                <li class="separador"></li>
+            </template>
+        </ul>
+
+        <br><br><br><br><br><br>
+
+        <h1>Aula 2</h1>
+        <ul>
+            <li v-for="produto in produtos" :key="produto.id" v-if="!produto.situacao">{{ produto.nome }}</li>
+        </ul>
+        <br>
+        <ul v-if="situacaoIncompletas.length">
+            <li v-for="produto in situacaoIncompletas" :key="produto.id">Produto: {{ produto.nome }} - Situação: {{ verificarSituacao }}</li>
+        </ul>
+        <p v-else>Não Existem Produtos em Andamento</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                produtos: [
+                    { id: 1, nome: 'Monitor', situacao: true},
+                    { id: 2, nome: 'Mouse', situacao: true},
+                    { id: 3, nome: 'Teclado', situacao: false},
+                    { id: 4, nome: 'Gabinete', situacao: false},
+                    { id: 5, nome: 'Memória RAM', situacao: false},
+                    { id: 6, nome: 'Placa Mãe', situacao: false},
+                    { id: 7, nome: 'Placa de Video', situacao: false},
+                    { id: 8, nome: 'Placa de Aúdio', situacao: false},
+                    { id: 9, nome: 'Fonte', situacao: true},
+                    { id: 10, nome: 'Placa de Captura', situacao: false},
+                    { id: 11, nome: 'Caixa de Som', situacao: true},
+                    { id: 12, nome: 'Impressora', situacao: true},
+                    { id: 13, nome: 'Head Set', situacao: false},
+                ],
+            },
+            methods: {
+            },
+            computed: {
+                situacaoIncompletas () {
+                    return this.produtos.filter(function(produto){
+                        return !produto.situacao
+                    })
+                },
+                verificarSituacao () {
+                    if(this.produtos.situacao === true){
+                        return "Completa"
+                    }else{
+                        return "Incompleta"
+                    }
+                    
+
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

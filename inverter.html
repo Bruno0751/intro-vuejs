@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <P>Nome Original: {{ curso }}</P>
+        <P>Nome (COMPUTED): {{ inverterComputed }}</P>
+        <P>Nome (METHODS): {{ inverterMethodOriginal() }}</P>
+
+        <br>
+        <div>
+            <label>Precisione enter
+                <input @keyup.enter="inverter">
+            </label>
+        </div>
+
+
+        <br><br><br><br><br>
+
+        <p>Autor: {{ nomeAutorIntero ? 'Bruno Gressler da Silveira' : ''}}</p>
+        <!--
+            AQUI SERIA METHODS
+        -->
+        <button @click="nomeAutorIntero = !nomeAutorIntero">Mudar Nome do Autor</button>
+
+    </div>
+
+    <script>
+        /*
+            PORQUE DEVO USAR coputed. INVES DE methods?
+
+            COPUTED PROPETY SÃO CACHEADAS DE ACORDO CODO COM SUAS DEPENDENCIAS EX: curso
+            JA METHODS SÃO CHAMADOS E RENDERIZADOS NA HORAS EM QUE SÃO CHAMADOS
+        */
+        new Vue({
+            el: '#app',
+            data: {
+                curso: "CursoVS",
+                nomeAutorIntero: false
+            },
+            computed: {
+                inverterComputed: function () {
+                    return this.curso.split('').reverse().join('')
+                }
+            },
+            methods: {
+                inverter: function (event) {
+                    this.curso = event.target.value
+                },
+                inverterMethodOriginal: function () {
+                    return this.curso.split('').reverse().join('')
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Interpolação de String</h1>
+        <p>{{ mensagem }}</p>
+        <p>Meu Nome é: {{ nome }}</p>
+
+        <br><hr><br>
+
+        <h2>v-once</h2>
+        <p>SERÁ RENDERIZADO O NOME COMPLETO APENAS UMA VEZ, SEUS FILHOS SERÃO CONSIDERADOS ESTÁTICOS</p>
+        <p v-once>Meu Nome completo é: {{ nomeCompleto }}</p>
+        <p>Meu Nome completo é: {{ nomeCompleto }}</p>
+
+        <br><hr><br>
+
+        <h2>Retorno com Método</h2>
+        <p>Meu Nome é: {{ getNomeCompleto() }}</p>
+
+        <br><hr><br>
+
+        <h2>v-text</h2>
+        <p>Uma Forma de escrita no VUE</p>
+        <span v-text="cliente"></span>
+
+        <br><hr><br>
+
+        <h2>Aula6</h2>
+        <p>MSG(Vue):{{ mensagem }} => {{ mensagem.split('').reverse().join('') }}</p>
+        <p>MSG:(COMPUTEED){{ mensagem }} => {{ inverter }}</p>
+
+        <br><hr><br>
+
+        <h2>Aula7</h2>
+        <p>Nome: {{ curso }} => {{ curso.split('').reverse().join('') }}</p>
+        <p>Nome: {{ curso }} => {{ inverterComputed }}</p>
+        <input @keyup.enter="inverterMethod">
+
+        <br><hr><br>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                mensagem: 'Ola Mundo',
+                nome: '',
+                //AULA 2
+                nomeCompleto: 'Bruno Gressler da Silveira',
+                cliente: "Bruno Freitas",
+                // AULA 4
+                curso: "Curso de VueJs",
+                // AULA 7
+                curso: "CursoVueJS",
+            },
+            methods: {
+                //AULA 2
+                getNomeCompleto: function () {
+                    this.nomeCompleto = 'Bruno'
+                    return this.nomeCompleto
+                },
+                //AULA 4
+                onClick: function (elementoAlvo, event) {
+                    event.stopPropagation()
+                    console.log(elementoAlvo, event.type)
+                },
+                // AULA 7
+                inverterMethod: function (event) {
+                    this.curso = event.target.value
+                },
+            },
+            // AULA6
+            computed: {
+                inverter: function () {
+                    return this.mensagem.split('').reverse().join('')
+                },
+                // AULA 7
+                inverterComputed: function () {
+                    return this.curso.split('').reverse().join('')
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

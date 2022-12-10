@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app" style="text-align: center;">
+        <h1>Link em VueJS</h1>
+        <a v-bind:href="docs" target="_blank">VueJS</a>
+
+        <br>
+
+        <p>{{ mensagem2 }}</p>
+        <!--
+            EXIBIR HTML ATRAVWÉZ DO VUE
+        -->
+        <p v-html="mensagem2"></p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                docs: 'http://vuejs.org',
+                mensagem2: 'Ola <span style="color: red;">Mundo</span>',
+            },
+            methods: {
+            },
+            computed: {
+            },
+        });
+    </script>
+</body>
+
+</html>

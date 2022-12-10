@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <script src="js/head.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Aula 1</h1>
+        <ul>
+            <li>Item1</li>
+            <li>Item2</li>
+            <template v-if="verdade">
+                <li>Item3</li>
+                <li>Item3</li>
+            </template>
+            <button @click="verdade = !verdade">maudar</button>
+        </ul>
+
+        <br><br><br><br><br><br>
+
+        <h1>Aula 2</h1>
+        <template v-if="verdade">
+            <input placeholder="Login" key="login">
+        </template>
+        <template v-else>
+            <input placeholder="Email" key="email">
+        </template>
+        <button @click="verdade = !verdade">maudar</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                // AULA 1
+                verdade: false
+            },
+            methods: {},
+            computed: {},
+        });
+    </script>
+</body>
+
+</html>

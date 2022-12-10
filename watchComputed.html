@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Alterando com wath</h1>
+        <p>Nome: {{ nomeCompleto }}</p>
+        <button @click.enter="alterar" style="width: 50%;">Alterar</button> 
+
+        <h1>Alterando com computed</h1>
+        <p>Nome: {{ nomeComputed }}</p>
+        <button @click="alterar" style="width: 50%;">Alterar</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                nomeCompleto: "Bruno Gressler da Silveira",
+                /*
+                    PARA ALTERAR COM computed REMOVA O data nomeCompleto, watch () E methods.alterar()
+                */
+                primeiroNome: "Bruno",
+                segundoNome: "Gressler",
+                preposicao: "da",
+                terceiroNome: "Silveira",
+            },
+            /*
+            computed: {
+                nomeComputed: function () {
+                    return this.primeiroNome + " " + this.segundoNome + " " + this.preposicao + " " + this.terceiroNome
+                }
+            },
+            */
+            methods: {
+                alterar: function(event){
+                    let nomeTodo = this.nomeCompleto
+                    if(nomeTodo == "Bruno Gressler da Silveira"){
+                        this.primeiroNome = "Silveira"
+                        this.segundoNome = "da"
+                        this.preposicao = "Gressler"
+                        this.terceiroNome = "Bruno"
+                    }else{
+                        this.primeiroNome = "Bruno"
+                        this.segundoNome = "Gressler"
+                        this.preposicao = "da"
+                        this.terceiroNome = "Silveira"
+                    }
+                },
+                /*
+                alterarComputed: function(event){
+                    let nomeTodo = this.nomeComputed
+                    if(nomeTodo == "Bruno Gressler da Silveira"){
+                        this.primeiroNome = "Silveira"
+                        this.segundoNome = "da"
+                        this.preposicao = "Gressler"
+                        this.terceiroNome = "Bruno"
+                    }else{
+                        this.primeiroNome = "Bruno"
+                        this.segundoNome = "Gressler"
+                        this.preposicao = "da"
+                        this.terceiroNome = "Silveira"
+                    }
+                },
+                */
+            },
+            watch: {
+                primeiroNome: function(novoPrimeiroNome){
+                    this.nomeCompleto = novoPrimeiroNome + " " + this.segundoNome + " " + this.preposicao + " " + this.terceiroNome
+                },
+                segundoNome: function(novoSegundoNome){
+                    this.nomeCompleto = this.primeiroNome + " " + novoSegundoNome + " " + this.preposicao + " " + this.terceiroNome
+                },
+                preposicao: function(novoPreposicao){
+                    this.nomeCompleto = this.primeiroNome + " " + this.segundoNome + " " + novoPreposicao + " " + this.terceiroNome
+                },
+                terceiroNome: function(novoTerceiroNome){
+                    this.nomeCompleto = this.primeiroNome + " " + this.segundoNome + " " + this.preposicao + " " +  novoTerceiroNome
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

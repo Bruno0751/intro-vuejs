@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <script src="js/head.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Aula 1</h1>
+        <ul>
+            <li v-for="produto in produtos">{{ texto }}: {{ produto }}</li>
+        </ul>
+
+        <br><br><br><br><br><br>
+
+        <h1>Aula 2</h1>
+        <ul>
+            <li v-for="(produto, indice) in produtos">{{ texto }} {{ indice }}: {{ produto }}</li>
+        </ul>
+
+        <br><br><br><br><br><br>
+
+        <h1>Aula 3</h1>
+        <ul>
+            <li v-for="valor in produto">{{ valor }}</li>
+        </ul>
+        <br>
+        <ul>
+            <li v-for="(valor, chave) in produto">Chave:{{ chave }}: {{ valor }}</li>
+        </ul>
+        <br>
+        <ul>
+            <li v-for="(valor, chave, indice) in produto">Posição: {{ indice }}: Chave:{{ chave }}: {{ valor }}</li>
+        </ul>
+
+        <br><br><br><br><br><br>
+
+        <h1>Aula 4</h1>
+        <ul>
+            <li v-for="valor of 30">{{ valor }}</li>
+        </ul>
+
+        <br><br><br><br><br><br>
+
+        <h1>Aula 5</h1>
+        <ul>
+            <li v-for="produto of produtos5" :key="produto.id">{{ texto }}: {{ produto.nome }}</li>
+        </ul>
+        <button @click="produtos5.reverse()">Inverter Lista</button>
+        <button @click="addProduto">Add Prduto</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                // AULA 1
+                texto: "Produto",
+                produtos: [
+                    'Monitor',
+                    'Teclado',
+                    'Mouse'
+                ],
+                // AULA 3
+                produto: {
+                    id: 1,
+                    nome: 'Teclado',
+                    marca: 'DELL',
+                    valor: 100
+                },
+                // AULA 5
+                produtos5: [{
+                    id: 1,
+                    nome: 'Monitor'
+                }, {
+                    id: 2,
+                    nome: 'Mouse'
+                }, {
+                    id: 3,
+                    nome: 'Teclado'
+                }, {
+                    id: 4,
+                    nome: 'Gabinete'
+                }, {
+                    id: 5,
+                    nome: 'Memória RAM'
+                }, {
+                    id: 6,
+                    nome: 'Placa Mãe'
+                }, {
+                    id: 7,
+                    nome: 'Placa de Video'
+                }, {
+                    id: 8,
+                    nome: 'Placa de Aúdio'
+                }, {
+                    id: 9,
+                    nome: 'Fonte'
+                }, {
+                    id: 10,
+                    nome: 'Placa de Captura'
+                }, {
+                    id: 11,
+                    nome: 'Caixa de Som'
+                }, {
+                    id: 12,
+                    nome: 'Impressora'
+                }, {
+                    id: 13,
+                    nome: 'Head Set'
+                }, ],
+            },
+            methods: {
+                addProduto() {
+                    let id = this.produtos5.lenght + 1
+                    this.produtos5.push({
+                        id: id,
+                        nome: 'Produto' + id
+                    })
+                }
+            },
+            computed: {},
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2Way</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        h1 {
+            text-align: center;
+            color: #008000;
+        }
+
+        #oneWayDataBind,
+        #array {
+            margin-left: 31%;
+        }
+
+        #twoWayDataBind,
+        #prop {
+            margin-left: 12%;
+        }
+
+        #oneWayDataBind,
+        #twoWayDataBind {
+            float: left;
+            text-align: center;
+        }
+
+        #array {
+            clear: both;
+            float: left;
+        }
+
+        #prop {
+            float: left;
+        }
+
+        #app {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>VueJS</h1>
+
+        <div id="oneWayDataBind">
+            <h2>One Wayy data bind</h2>
+            <p>{{ nome }}</p>
+        </div>
+
+        <div id="twoWayDataBind">
+            <h2>Two Wayy data bind</h2>
+            <input @input="sobreNome = $event.target.value">
+            <input v-model="sobreNome">
+        </div>
+
+        <div id="array">
+            <h2>Array</h2>
+            <ul>
+                <li v-for="produto in produtos" :key="produto.id">Produto: {{ produto.nome }}</li>
+            </ul>
+            <button @click="adicionar">Add</button>
+            <button @click="produtos = produtos.slice(0, 12)">Inverter</button>
+            <button @click="substituairProduto">Substituir</button>
+            <button @click="cortarArray">Cortar</button>
+        </div>
+
+        <div id="prop">
+            <h2>Adionar Prop</h2>
+            <ul>
+                <li v-for="(produt, chave) in frutas" :key="produt.id">{{ chave }} {{ produt }}</li>
+            </ul>
+            <button @click="addPropriedade">Adicionar Propriedade</button>
+            <button @click="addPropriedades">Adicionar Propriedades</button>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    sobreNome: '',
+                    nome: 'Bruno',
+                    frutas: {
+                        id: 1,
+                        nome: 'teste',
+                    },
+                    produtos: [
+                        { id: 1, nome: 'Monitor', situacao: true },
+                        { id: 2, nome: 'Mouse', situacao: true },
+                        { id: 3, nome: 'Teclado', situacao: false },
+                        { id: 4, nome: 'Gabinete', situacao: false },
+                        { id: 5, nome: 'Memória RAM', situacao: false },
+                        { id: 6, nome: 'Placa Mãe', situacao: false },
+                        { id: 7, nome: 'Placa de Video', situacao: false },
+                        { id: 8, nome: 'Placa de Aúdio', situacao: false },
+                        { id: 9, nome: 'Fonte', situacao: true },
+                        { id: 10, nome: 'Placa de Captura', situacao: false },
+                        { id: 11, nome: 'Caixa de Som', situacao: true },
+                        { id: 12, nome: 'Impressora', situacao: true },
+                    ],
+                }
+            },
+            methods: {
+                adicionar() {
+                    let id = this.produtos.length + 1
+                    this.produtos.push({
+                        id: id, nome: 'Produto' + id
+                    })
+                },
+                cortarArray() {
+                    this.produtos.splice(this.produtos.length / 2)
+                },
+                substituairProduto() {
+                    let tamanho = this.produtos.length
+                    let indice = Math.round(tamanho / 2)
+                    let novoProduto = {
+                        id: 13, nome: 'Produto Novo' + tamanho
+                    }
+                    // this.produtos[indice] = novoProduto NÃO É REATIVO
+                    // Vue.set(this.produtos, indice, novoProduto)
+                    // this.$set(this.produtos, indice, novoProduto)
+                    this.produtos.splice(indice, 1, novoProduto)
+                },
+                addPropriedades() {
+                    this.frutas = Object.assign({}, this.frutas, {
+                        preco: 50,
+                        cor: 'Amarelo',
+                    })
+                },
+                addPropriedade() {
+                    this.$set(this.frutas, 'preco', 100)
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ nomeCompleto }}</p>
+        <button @click="alterarNome" style="width: 50%;">Alterar</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                nomeCompleto: "Bruno Gressler da Silveira"
+            },
+            computed: {
+                nomeCompleto: function () {
+                    return this.primeiroNome + " " + this.segundoNome + " " + this.preposicao + " " + this.terceiroNome
+                }
+            },
+            methods: {
+                alterarNome: function (event) {
+                    let nomeTodo = this.nomeCompleto
+                    if (nomeTodo == "Bruno Gressler da Silveira") {
+                        this.nomeCompleto = "Silveira da Gressler Bruno"
+                    }else{
+                        this.nomeCompleto = "Bruno Gressler da Silveira"
+                    }
+                }
+            },
+            watch: {
+                nomeCompleto: function(novoNomeCompleto, antigoNomeCompleto){
+                    let vm = this
+                    setTimeout(function(){
+                        vm.nomeCompleto = "Nome Resetado"
+                    }, 3000)
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

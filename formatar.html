@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <script src="js/head.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        body {
+            padding: 100px 1%;
+            margin: 0;
+            background-color: wheat;
+        }
+        
+        .arial {
+            font-family: Arial;
+        }
+        
+        .timesNewRoman {
+            font-family: 'Times New Roman';
+        }
+        
+        .helvetica {
+            font-family: Helvetica;
+        }
+        
+        .times {
+            font-family: Times;
+        }
+        
+        .courierNew {
+            font-family: 'Courier New';
+        }
+        
+        .verdana {
+            font-family: Verdana;
+        }
+        
+        .courier {
+            font-family: Courier;
+        }
+        
+        .calibri {
+            font-family: Calibri;
+        }
+        
+        .cambria {
+            font-family: Cambria;
+        }
+        
+        .geneva {
+            font-family: Geneva;
+        }
+        
+        .arialNarrow {
+            font-family: 'Arial Narrow';
+        }
+        
+        select {
+            width: 30%;
+            height: 30px;
+            border-radius: 5px;
+            border-style: outset;
+        }
+        
+        button {
+            width: 8%;
+            height: 30px;
+            border-radius: 5px;
+            border-style: outset;
+        }
+        
+        .cor {
+            width: 51%;
+            height: 100px;
+        }
+        
+        ol,
+        ul {
+            list-style-position: inside;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="resposta"></div>
+
+        <br><br><br>
+        <div style="text-align: center;">
+            <input id="valor" type="text" v-model="name" style="width: 80%; height: 100px;" @input="updateTexto" @keyup.alt.n.exact="negrito" @keyup.alt.i.exact="italico" @keyup.alt.s.exact="sublinhado" @keyup.alt.t.exact="taxado" @keypress.tab.exact="keypress($event)">
+        </div>
+        <div id="valor2" style="text-align: unset !important;">{{ name }}</div>
+
+        <br><br><br>
+        <div style="text-align: center;">
+            <div>
+                <button @click="italico" :disabled="!habilit">Italico</button>
+                <button @click="negrito" :disabled="!habilit">Negrito</button>
+                <button @click="sublinhado" :disabled="!habilit">Sublinhado</button>
+                <button @click="taxado" :disabled="!habilit">Taxado</button>
+                <button @click="center" :disabled="!habilit">Centralizar</button>
+                <button @click="left" :disabled="!habilit">Alinhar Esquesrda</button>
+                <button @click="right" :disabled="!habilit">Alinha Direita</button>
+                <button @click="justify" :disabled="!habilit">Justificado</button>
+                <button @click="ol" :disabled="!habilit">Ordenada</button>
+                <button @click="ul" :disabled="!habilit">N Ordenada</button>
+            </div>
+
+            <br><br><br>
+            <div>
+                <label for="tamanho">Tamanho</label>
+                <br>
+                <select v-model="valorTamanho" @input="selectTamanho($event)" name="tamanho" :disabled="!habilit">
+                    <option value=" "></option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                </select>
+                <p>{{ valorTamanho }}</p>
+                <label for="fonte">Fonte</label>
+                <br>
+                <select v-model="valorFonte" @input="selectFonte($event)" name="fonte" :disabled="!habilit">
+                    <option></option>
+                    <option value="Arial" class="arial">Arial</option>
+                    <option value="'Times New Roman'" class="timesNewRoman">Times New Roman</option>
+                    <option value="Helvetica" class="helvetica">Helvética</option>
+                    <option value="Times" class="times">Times</option>
+                    <option value="'Courier New'" class="courierNew">Courier New</option>
+                    <option value="Verdana" class="verdana">Verdana</option>
+                    <option value="Courier" class="courier">Courier</option>
+                    <option value="Calibri" class="calibri">Calibri</option>
+                    <option value="Cambria" class="cambria">Cambria</option>
+                    <option value="Geneva" class="geneva">Geneva</option>
+                    <option value="'Arial Narrow'" class="arialNarrow">Arial Narrow</option>
+                </select>
+                <p>{{ valorFonte }}</p>
+                <label for="cor">Cor</label>
+                <br>
+                <input id="cor" type="color" v-model="cor" name="cor" @input="selecionarCor($event)" :disabled="!habilit">
+                <p>{{ cor }}</p>
+            </div>
+
+            <br><br>
+            <p class="arial">Arial</p>
+            <p class="timesNewRoman">Times New Roman</p>
+            <p class="helvetica">Helvética</p>
+            <p class="times">Times</p>
+            <p class="courierNew">Courier New</p>
+            <p class="verdana">Verdana</p>
+            <p class="courier">Courier</p>
+            <p class="calibri">Calibri</p>
+            <p class="cambria">Cambria</p>
+            <p class="geneva">Geneva</p>
+            <p class="arialNarrow">Arial Narrow</p>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    dados: {
+                        tamanho: null,
+                        fonte: null,
+                    },
+                    habilit: false,
+                    cor: null,
+                    name: null,
+                    valorFonte: null,
+                    valorTamanho: null,
+                }
+            },
+            beforeCreate() {},
+            created() {},
+            beforeMount() {},
+            mounted() {},
+            beforeUpdate() {},
+            updated() {},
+            beforeDestroy() {},
+            destroyed() {},
+            methods: {
+                keypress(event) {
+                    console.log(event.key)
+                },
+                updateTexto() {
+                    if (this.name !== '') {
+                        this.habilit = true
+                    } else {
+                        this.habilit = false
+                    }
+                },
+                ol() {
+                    let resposta = document.querySelector('#resposta')
+                    let div = document.querySelector('div#valor2')
+                    let ol = document.createElement('ol')
+                    let li = document.createElement('li')
+                    div.appendChild(ol)
+                    ol.appendChild(li)
+                    li.innerHTML = 'lista'
+                },
+                ul() {
+                    let ul = document.createElement('ul')
+                    let p = document.querySelector('div#valor2')
+                },
+                italico() {
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    if (texto.style.fontStyle === 'italic' && p.style.fontStyle === 'italic') {
+                        texto.style.fontStyle = 'normal'
+                        p.style.fontStyle = 'normal'
+                    } else {
+                        texto.style.fontStyle = 'italic'
+                        p.style.fontStyle = 'italic'
+                    }
+                },
+                negrito() {
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    if (texto.style.fontWeight === 'bold' && p.style.fontWeight === 'bold') {
+                        texto.style.fontWeight = 'normal'
+                        p.style.fontWeight = 'normal'
+                    } else {
+                        texto.style.fontWeight = 'bold'
+                        p.style.fontWeight = 'bold'
+                    }
+                },
+                sublinhado() {
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    if (texto.style.textDecoration === 'underline' && p.style.textDecoration === 'underline') {
+                        texto.style.textDecoration = 'none'
+                        p.style.textDecoration = 'none'
+                    } else {
+                        texto.style.textDecoration = 'underline'
+                        p.style.textDecoration = 'underline'
+                    }
+                },
+                center() {
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    if (texto.style.textAlign === 'center' && p.style.textAlign === 'center') {
+                        texto.style.textAlign = 'unset'
+                        p.style.textAlign = 'unset'
+                    } else {
+                        texto.style.textAlign = 'center'
+                        p.style.textAlign = 'center'
+                    }
+                },
+                justify() {
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    if (texto.style.textAlign === 'justify' && p.style.textAlign === 'justify') {
+                        texto.style.textAlign = 'unset'
+                        p.style.textAlign = 'unset'
+                    } else {
+                        texto.style.textAlign = 'justify'
+                        p.style.textAlign = 'justify'
+                    }
+                },
+                left() {
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    if (texto.style.textAlign === 'left' && p.style.textAlign === 'left') {
+                        texto.style.textAlign = 'unset'
+                        p.style.textAlign = 'unset'
+                    } else {
+                        texto.style.textAlign = 'left'
+                        p.style.textAlign = 'left'
+                    }
+                },
+                right() {
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    if (texto.style.textAlign === 'right' && p.style.textAlign === 'right') {
+                        texto.style.textAlign = 'unset'
+                        p.style.textAlign = 'unset'
+                    } else {
+                        texto.style.textAlign = 'right'
+                        p.style.textAlign = 'right'
+                    }
+                },
+                taxado() {
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    if (texto.style.textDecoration === 'line-through' && p.style.textDecoration === 'line-through') {
+                        texto.style.textDecoration = 'none'
+                        p.style.textDecoration = 'none'
+                    } else {
+                        texto.style.textDecoration = 'line-through'
+                        p.style.textDecoration = 'line-through'
+                    }
+                },
+                selectTamanho(event) {
+                    this.dados.tamanho = event.target.value
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    texto.style.fontSize = this.dados.tamanho + 'pt'
+                    p.style.fontSize = this.dados.tamanho + 'pt'
+                },
+                selectFonte(event) {
+                    this.dados.fonte = event.target.value
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    texto.style.fontFamily = this.dados.fonte
+                    p.style.fontFamily = this.dados.fonte
+                },
+                selecionarCor() {
+                    this.cor = event.target.value
+                    let texto = document.querySelector('input#valor')
+                    let p = document.querySelector('div#valor2')
+                    texto.style.color = this.cor
+                    p.style.color = this.cor
+                },
+            },
+            computed: {},
+        });
+    </script>
+</body>
+
+</html>

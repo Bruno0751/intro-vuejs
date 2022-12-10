@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <script src="js/head.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app" style="text-align: center; height: 110vh;">
+        <h1>Eventos</h1>
+
+        <br>
+
+        <div style="float: left; margin-left: 20%;">
+            <h2>mousemove</h2>
+            <p v-on:mousemove="atualizarCoordenadas($event)">Coordenadas x: {{ x }} e y: {{ y }}</p>
+        </div>
+
+        <br>
+
+        <div style="float: right; margin-right: 20%;">
+            <h2>click</h2>
+            <button @click="clicar()">Click</button>
+            <p>vezes {{ cliques }} </p>
+        </div>
+
+        <br>
+
+        <div style="clear: both;">
+            <h2>blur</h2>
+            <input type="text" v-on:blur="mostrarNome('Meu Nome é: ', $event)" style="width: 100%; height: 30px;" placeholder="Escreva algo e clique fora...">
+            <p>{{ nome }}</p>
+        </div>
+
+        <br>
+
+        <div style="float: left;  margin-left: 20%;">
+            <h2>click com modificadores</h2>
+            <form>
+                <input type="submit" v-on:click="onSubmit" value="Sem Modificador">
+                <input type="submit" v-on:click.prevent="onSubmit" value="Com Modificador">
+                <label>Veja No Console</label>
+            </form>
+        </div>
+
+        <br>
+
+        <div style="float: right; margin-right: 20%;">
+            <p v-on:click="onClick('p', $event)">
+                {{ cursodevuejs }}
+                <!--
+                APENAS PARA NÃO PEGAR O P
+            -->
+                <button @click="onClick('button', $event)">Click</button>
+                <label>Veja No Console</label>
+            </p>
+        </div>
+
+        <br>
+
+        <div style="float: left; clear: both;  margin-left: 20%;">
+            <h2>keyup</h2>
+            <input v-on:keyup="onKeyTecla" placeholder="Qualquer tecla">
+            <p>tecla: {{ tecla }}</p>
+        </div>
+
+        <div style="float: right; margin-right: 20%;">
+            <label>ctrl+enter</label>
+            <input v-on:keyup.ctrl.enter.exact="onKeyExata" placeholder="Teclas Exatas">
+            <p>Tecla Exata: {{ teclaExata }}</p>
+        </div>
+
+        <div style="clear: both;">
+            <input v-on:keyup.enter.esc="onKeyQualquer" placeholder="enter ou esc">
+            <p>ESC OU ENTER: {{ qualquerTecla }}</p>
+        </div>
+
+        <br>
+
+        <div style="float: left;  margin-left: 20%;">
+            <h2>click com mouse</h2>
+            <label>Console</label>
+            <br>
+            <button v-on:click.left="onClickMouse">Botão Esquerdo</button>
+            <br><br>
+            <button v-on:click.middle="onClickMouse">Botão do meio</button>
+            <br><br>
+            <button v-on:click.right="onClickMouse">Botão Direito</button>
+            <br><br>
+            <button v-on:click.right.prevent="onClickMouse">Sem menu de contexto</button>
+        </div>
+
+        <br>
+
+        <div style="float: right; margin-right: 20%;">
+            <h2>input</h2>
+            <input type="text" v-on:input="mudarNome">
+            <p>{{ nomeInput }}</p>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                nome: '',
+                x: 0,
+                y: 0,
+                cliques: 0,
+                cursodevuejs: 'Curso Vue',
+                tecla: '',
+                teclaExata: "",
+                qualquerTecla: "",
+                nomeInput: '',
+            },
+            methods: {
+                atualizarCoordenadas: function(event) {
+                    this.x = event.clientX
+                    this.y = event.clientY
+                },
+                clicar: function() {
+                    this.cliques++
+                },
+                mostrarNome: function(texto, event) {
+                    this.nome = texto + event.target.value
+                },
+                onSubmit: function(event) {
+                    console.log("Formulario Enviado")
+                },
+                onClick: function(elementoAlvo, event) {
+                    event.stopPropagation()
+                    console.log(elementoAlvo, event.type)
+                },
+                onKeyTecla: function(event) {
+                    this.tecla = event.key
+                },
+                onKeyQualquer: function() {
+                    this.qualquerTecla = event.key
+                },
+                onKeyExata: function() {
+                    console.log(event.key)
+                    this.teclaExata = event.key
+                },
+                onClickMouse: function(event) {
+                    console.log("Botão: " + event.button)
+                },
+                mudarNome: function(event) {
+                    this.nomeInput = event.target.value
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>

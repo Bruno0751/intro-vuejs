@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quill</title>
+
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 11px;
+            background-color: rgb(211, 211, 211);
+            text-align: center;
+            border: 20px solid #000000;
+            height: 100vh;
+        }
+
+        #editor {
+            background-color: #ffffff;
+            height: 10vh;
+        }
+    </style>
+
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>quill</h1>
+        <div id="editor" v-model="resposta">
+        </div>
+        <input v-model="resposta">
+        {{ resposta }}
+    </div>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+    </script>
+    <script>
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    resposta: '',
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>
